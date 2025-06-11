@@ -2,8 +2,10 @@ import { ScrollView, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Cover } from '../components/cover/Cover';
+import { Carousel } from '../components/carousel/Carousel';
 import { getMovieContainers } from '../hooks/getMovieContainers';
 import { Container } from '../constants/interfaces';
+
 
 export function Home() {
     const insets = useSafeAreaInsets();
@@ -24,7 +26,16 @@ export function Home() {
         contentContainerStyle={{ paddingBottom: insets.bottom }}
         >
         {trendingContainer?.items[0] && <Cover {...trendingContainer.items[0]} />}
-
+        {movieData.containers
+        .filter((container: Container) => container.id.toLowerCase() !== 'trending')
+        .map((container: Container) => (
+            <Carousel
+            key={container.id}
+            title={container.title}
+            data={container.items}
+            layout={container.layout}
+            />
+        ))}
         </ScrollView>
     );
 }

@@ -49,3 +49,19 @@ export interface Container {
 export interface ApiResponse {
   containers: Container[];
 }
+
+export interface MyCarouselProps {
+    title: string;
+    layout: 'portrait-card' | 'landscape-card' | 'thumbnail-card';
+    data: MovieItem[];
+}
+
+export interface AnimatedCardsProps {
+    movie: MovieItem;
+    index: number;
+    layout: 'portrait-card' | 'landscape-card' | 'thumbnail-card';
+};
+
+export interface CardProps {
+  image: string;
+}
