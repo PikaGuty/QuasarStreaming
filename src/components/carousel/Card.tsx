@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Image, StyleSheet, ActivityIndicator, Platform } from 'react-native';
 import { MovieItem } from '../../constants/interfaces';
 
 type Props = {
@@ -8,6 +8,8 @@ type Props = {
 };
 
 export function Card({ movie, layout }: Props) {
+  const [loading, setLoading] = useState(true);
+
   let image = '';
   let aspectRatio = 2 / 3;
 
@@ -29,7 +31,16 @@ export function Card({ movie, layout }: Props) {
 
   return (
     <View style={[styles.card, { aspectRatio }]}>
-      <Image source={{ uri: image }} style={styles.cardImage} />
+      {loading && (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="small" color="#ffffff" />
+        </View>
+      )}
+      <Image
+        source={{ uri: image }}
+        style={styles.cardImage}
+        onLoad={() => setLoading(false)}
+      />
     </View>
   );
 }
@@ -45,10 +56,21 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
+    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   cardImage: {
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
+  },
+  loadingContainer: {
+    position: 'absolute',
+    zIndex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
   },
 });
