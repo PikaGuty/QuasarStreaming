@@ -3,13 +3,20 @@ import { Modal, View, Text, StyleSheet, Image, ScrollView, Pressable, } from 're
 import { MovieItem } from '../../constants/interfaces';
 
 type Props = {
-  visible: boolean;
-  onClose: () => void;
-  movie: MovieItem | null;
+  visible: boolean;     // Determines whether the modal is visible
+  onClose: () => void;  // Function to close the modal
+  movie: MovieItem | null; // Movie data to display
 };
 
+/**
+ * MovieDetailsModal Component
+ *
+ * Displays detailed information about a movie inside a modal.
+ * Includes poster image, title, year, duration, classification,
+ * rating, description, cast, and crew members.
+ */
 export function MovieDetailsModal({ visible, onClose, movie }: Props) {
-  if (!movie) return null;
+  if (!movie) return null; // If no movie is provided, render nothing
 
   return (
     <Modal animationType="slide" visible={visible} onRequestClose={onClose}>

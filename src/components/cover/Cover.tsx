@@ -5,8 +5,17 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import { MovieItem } from '../../constants/interfaces';
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get('window'); // Get the screen width for responsive background image sizing
 
+/**
+ * Cover Component
+ * 
+ * Displays a featured movie banner with background image,
+ * gradient overlay, title, metadata, and a rating.
+ * 
+ * Props:
+ * - movie: A MovieItem object containing movie data.
+ */
 export function Cover(movie: MovieItem){
     return (
         <ImageBackground
@@ -14,11 +23,14 @@ export function Cover(movie: MovieItem){
         style={styles.background}
         resizeMode="cover"
         >
+        
+        {/* Gradient overlay to improve text visibility */}
         <LinearGradient
             colors={['transparent', 'rgba(0,0,0,0.8)']}
             style={styles.gradient}
         />
 
+        {/* Info container: title, metadata, rating */}
         <View style={styles.infoContainer}>
             <Text style={styles.title}>{movie.title}</Text>
             <View style={styles.row}>
@@ -35,7 +47,7 @@ export function Cover(movie: MovieItem){
     );
 };
 
-
+// Styles for Cover component layout and appearance
 const styles = StyleSheet.create({
   background: {
     width: width,
@@ -45,7 +57,7 @@ const styles = StyleSheet.create({
   gradient: {
     position: 'absolute',
     bottom: 0,
-    height: 200, // cubre solo la mitad inferior (ajusta según tu caso)
+    height: 200,
     width: '100%',
   },
   infoContainer: {

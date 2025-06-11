@@ -7,9 +7,19 @@ import { getMovieContainers } from '../hooks/getMovieContainers';
 import { Container } from '../constants/interfaces';
 
 
+/**
+ * Home Screen Component
+ * 
+ * This component serves as the main screen of the app, displaying a cover image
+ * for the featured movie and a carousel of other movie containers.
+ * It fetches movie data from an API and handles loading and error states.
+ * 
+ * @returns {JSX.Element} The rendered Home screen.
+ */
 export function Home() {
     const insets = useSafeAreaInsets();
 
+    // URL of the API endpoint to fetch movie data
     const apiUrl = 'https://nxvgg8i9w3.execute-api.us-east-2.amazonaws.com/functionQuasarStreaming';
     const { movieData, loading, error } = getMovieContainers(apiUrl);
 
@@ -25,7 +35,8 @@ export function Home() {
         style={{ flex: 1, backgroundColor: 'black' }}
         contentContainerStyle={{ paddingBottom: insets.bottom }}
         >
-        {trendingContainer?.items[0] && <Cover {...trendingContainer.items[0]} />}
+        {trendingContainer?.items[0] && <Cover {...trendingContainer.items[0]} />} // Display the cover for the first item in the trending container
+        // Map through the containers and render a Carousel for each one, excluding the 'trending' container
         {movieData.containers
         .filter((container: Container) => container.id.toLowerCase() !== 'trending')
         .map((container: Container) => (
