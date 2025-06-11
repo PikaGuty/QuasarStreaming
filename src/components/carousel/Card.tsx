@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Image, StyleSheet, ActivityIndicator, Platform } from 'react-native';
+import { View, Image, StyleSheet, ActivityIndicator, Pressable, } from 'react-native';
 import { MovieItem } from '../../constants/interfaces';
+import { MovieDetailsModal } from '../movieDetails/MovieDetails'; // Ajusta el path según tu estructura
 
 type Props = {
   movie: MovieItem;
@@ -9,6 +10,7 @@ type Props = {
 
 export function Card({ movie, layout }: Props) {
   const [loading, setLoading] = useState(true);
+  const [showDetails, setShowDetails] = useState(false);
 
   let image = '';
   let aspectRatio = 2 / 3;
@@ -30,18 +32,28 @@ export function Card({ movie, layout }: Props) {
   }
 
   return (
-    <View style={[styles.card, { aspectRatio }]}>
-      {loading && (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="small" color="#ffffff" />
+    <>
+      <Pressable onPress={() => setShowDetails(true)}>
+        <View style={[styles.card, { aspectRatio }]}>
+          {loading && (
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator size="small" color="#ffffff" />
+            </View>
+          )}
+          <Image
+            source={{ uri: image }}
+            style={styles.cardImage}
+            onLoad={() => setLoading(false)}
+          />
         </View>
-      )}
-      <Image
-        source={{ uri: image }}
-        style={styles.cardImage}
-        onLoad={() => setLoading(false)}
+      </Pressable>
+
+      <MovieDetailsModal
+        visible={showDetails}
+        onClose={() => setShowDetails(false)}
+        movie={movie}
       />
-    </View>
+    </>
   );
 }
 
