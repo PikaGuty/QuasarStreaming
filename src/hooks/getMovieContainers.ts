@@ -6,7 +6,6 @@ export function getMovieContainers(apiUrl: string) {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<Error | null>(null);
 
-    console.log("getMovieContainers hook called with apiUrl:", apiUrl);
     useEffect(() => {
     let isMounted = true;
 

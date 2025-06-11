@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   thumbnail: {
-    width: 200,
+    width: 500,
     height: 300,
     borderRadius: 12,
     marginBottom: 16,
