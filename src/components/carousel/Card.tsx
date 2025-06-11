@@ -3,23 +3,38 @@ import { View, Image, StyleSheet, ActivityIndicator, Pressable, } from 'react-na
 import { MovieItem } from '../../constants/interfaces';
 import { MovieDetailsModal } from '../movieDetails/MovieDetails'; // Ajusta el path según tu estructura
 
+// Props type definition for the Card component
 type Props = {
   movie: MovieItem;
   layout: 'portrait-card' | 'landscape-card' | 'thumbnail-card';
 };
 
+/**
+ * Card Component
+ * 
+ * Displays a movie poster image based on the specified layout (portrait, landscape, or thumbnail).
+ * Shows a loading spinner while the image is loading.
+ * When tapped, opens a modal with movie details.
+ */
 export function Card({ movie, layout }: Props) {
-  const [loading, setLoading] = useState(true);
-  const [showDetails, setShowDetails] = useState(false);
+  const [loading, setLoading] = useState(true); // State to control image loading spinner
+  const [showDetails, setShowDetails] = useState(false); // State to control visibility of movie details modal
 
+  // Variables to store the image URL and calculated aspect ratio
   let image = '';
   let aspectRatio = 2 / 3;
 
+  /**
+   * Parses a string ratio (e.g., "16/9") to a numeric aspect ratio
+   * @param ratio - String representing the aspect ratio
+   * @returns number - Calculated aspect ratio
+   */
   const parseAspectRatio = (ratio: string) => {
     const [w, h] = ratio.split('/').map(Number);
     return w / h;
   };
 
+  // Determine image and aspect ratio based on layout prop
   if (layout === 'portrait-card') {
     image = movie.posters.portrait.url;
     aspectRatio = parseAspectRatio(movie.posters.portrait.aspectRatio);
@@ -33,13 +48,17 @@ export function Card({ movie, layout }: Props) {
 
   return (
     <>
+      {/* Touchable card that opens the movie details modal */}
       <Pressable onPress={() => setShowDetails(true)}>
         <View style={[styles.card, { aspectRatio }]}>
+          {/* Show loading spinner while image loads */}
           {loading && (
             <View style={styles.loadingContainer}>
               <ActivityIndicator size="small" color="#ffffff" />
             </View>
           )}
+
+          {/* Movie poster image */}
           <Image
             source={{ uri: image }}
             style={styles.cardImage}
@@ -48,6 +67,7 @@ export function Card({ movie, layout }: Props) {
         </View>
       </Pressable>
 
+      {/* Modal for displaying movie details */}
       <MovieDetailsModal
         visible={showDetails}
         onClose={() => setShowDetails(false)}
@@ -57,6 +77,7 @@ export function Card({ movie, layout }: Props) {
   );
 }
 
+// Styles for the card and its internal elements
 const styles = StyleSheet.create({
   card: {
     width: 200,

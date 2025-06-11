@@ -9,7 +9,7 @@ export default function App() {
     <SafeAreaProvider>
       <View style={styles.container}>
         <StatusBar style="inverted" />
-        <Home></Home>
+        <Home></Home> // Main screen of the app displaying movie data
       </View>
     </SafeAreaProvider>
   );
