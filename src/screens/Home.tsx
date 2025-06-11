@@ -1,5 +1,7 @@
 import { ScrollView, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Constants from 'expo-constants';
+
 
 import { Cover } from '../components/cover/Cover';
 import { Carousel } from '../components/carousel/Carousel';
@@ -20,8 +22,8 @@ export function Home() {
     const insets = useSafeAreaInsets();
 
     // URL of the API endpoint to fetch movie data
-    const apiUrl = 'https://nxvgg8i9w3.execute-api.us-east-2.amazonaws.com/functionQuasarStreaming';
-    const { movieData, loading, error } = getMovieContainers(apiUrl);
+    const { API_URL } = Constants.expoConfig?.extra || {};
+    const { movieData, loading, error } = getMovieContainers(API_URL);
 
     if (loading) return <Text>Cargando...</Text>;
     if (error || movieData == null) return <Text>Error: {error ? error.message : 'Unknown error'}</Text>;

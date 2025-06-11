@@ -15,3 +15,11 @@ The "Cover" is a component used to display the trending movie. Although it is cu
 
 ### Carousel
 I've created a component called "Carousel." As its name suggests, it allows the application to scroll through movies within the same category. It uses a subcomponent called "Card," which I reused by dynamically setting its size based on the values provided in the JSON data. Additionally, I created a middle component called "Animated" to progressively display the movie's image.
+
+## Use
+### 📱 Android
+You can download the Android app using one of the following options:
+- https://expo.dev/accounts/pikaguty/projects/QuasarStreaming/builds/d99662db-5ae3-4614-b727-aa1385a2d638
+- Or download the QuasarStreaming.apk in this repository
+### 🍎 iOS
+The iOS version will be available soon.
